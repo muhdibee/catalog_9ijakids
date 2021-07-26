@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Form, FormGroup, Label, Input, Button} from 'reactstrap';
+import { Navbar, NavbarBrand, Form, FormGroup, Label, Input, Button, Col, Submit} from 'reactstrap';
 import './App.css';
-import Rendergames from './gameComponents';
+import Rendergames from './RenderGameComponents';
 // import axios from 'axios';
 import {GAMES} from './games';
 
@@ -11,11 +11,14 @@ class App extends Component {
     super(props);
     this.state = {
       games: GAMES,
-      gameList: GAMES
+      gameList: GAMES,
+      search: null
     }
   }
 
   render() {
+
+    console.log(this.state.search);
 
     const academic = this.state.games.filter((academic)=>academic.Group === "Academic");
     const financial_Literacy = this.state.games.filter((fin_lit)=>fin_lit.Group === "Financial Literacy");
@@ -57,20 +60,33 @@ class App extends Component {
       }      
     }
 
+    const setSearch=(e)=>{
+      this.setState({
+        search:e.target.value
+      })
+    }
+
+    const handleSearch= ()=> {
+      let searchValue = this.state.search;
+      let result = this.state.games.filter((game)=> game.GameTitle === searchValue);
+      if(result && result !==null){
+          this.setState({
+          gameList: result
+        })
+      }
+      else {
+        this.setState({
+          gameList: null
+        })
+      }
+    }
+
     return (
       <div>
         <Navbar color="success" dark >
           <div className="container">
             <div className="row">
-              <NavbarBrand className="col mr-3 navbarBrand">9jaiKids</NavbarBrand>
-                <div className="Searchform">
-                    <Form >
-                    <FormGroup>
-                        <Input type="text" id="search" placeholder="Search by Topic" />
-                    </FormGroup>
-                    <Button className="btn btn-dark">Search</Button>
-                  </Form>
-                </div>
+              <NavbarBrand className="col-6">9jaiKids</NavbarBrand>
             </div>
           </div>
         </Navbar>
@@ -85,6 +101,15 @@ class App extends Component {
               </div>
             </i>
           </div>
+          <div className="my-2 mr-auto col-6 col-md-4 m-5">
+          <Form>
+            <FormGroup row>
+              <Input type="text" placeholder="Search by topics" id="search" className="col" onChange={(e)=> setSearch(e)}/>&nbsp;
+              <Button className="btn btn-success col-4 col-md-3" for="search" onClick={()=> handleSearch()}>Search</Button>
+            </FormGroup>
+          </Form>
+        </div>
+
           <div className="container">
             <Rendergames games={this.state.gameList}/>
           </div>
