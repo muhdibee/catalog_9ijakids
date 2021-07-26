@@ -21,3 +21,18 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+  Local:            http://localhost:3000        
+  On Your Network:  http://192.168.43.150:3000   
+
+
+                        {/* <Media>
+                            <Media left href="#">
+                                <Media object src={game.GameImage} alt={game.GameTitle} width="20%"/>
+                            </Media>
+                            <Media body>
+                                <Media heading>{game.GameTitle}</Media>
+                                {game.GameDescription}
+                            </Media>
+                        </Media>  */}
