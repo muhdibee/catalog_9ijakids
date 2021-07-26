@@ -6,7 +6,7 @@ export default function Rendergames({games}) {
         <div className="row m-1">
             {games.map(game=> {
                return(
-                   <div className="col-12 col-md-4 my-1">
+                   <div key={game.GameTitle} className="col-12 col-md-4 my-1">
                        <Card>
                            <CardImg src={game.GameImage} alt={game.GameTitle} width="100%"/>
                            <CardBody>
